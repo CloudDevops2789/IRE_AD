@@ -113,4 +113,33 @@ However, if you rely on advanced Active Directory features such as custom schema
               Application Recovery
 
 
+                         ┌────────────────────┐
+                         │ aws_managed_ad_    │
+                         │ connection         │
+                         └─────────┬──────────┘
+                                   │
+                     ┌─────────────┴──────────────┐
+                     │                            │
+           ad_identity_export          ad_identity_manifest
+                     │                            │
+                     └─────────────┬──────────────┘
+                                   │
+                         aws_s3_identity_archive
+                                   │
+──────────────────── Recovery Starts ─────────────────────
+                                   │
+                           ad_identity_plan
+                                   │
+                           ad_identity_import
+                                   │
+                           ad_identity_password
+                                   │
+                 ┌─────────────────┴──────────────────┐
+                 │                                    │
+      windows_domain_validation      linux_domain_validation
+                 │                                    │
+                 └─────────────────┬──────────────────┘
+                                   │
+                           ad_identity_report
+
 

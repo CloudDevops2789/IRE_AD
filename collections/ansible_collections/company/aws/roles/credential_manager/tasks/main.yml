@@ -1,0 +1,3 @@
+---
+- name: Load credential backend
+  ansible.builtin.include_tasks: "{{ credential_backend }}.yml"

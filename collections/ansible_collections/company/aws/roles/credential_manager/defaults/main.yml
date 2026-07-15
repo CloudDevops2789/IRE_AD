@@ -1,0 +1,7 @@
+---
+# Credential backend to use
+credential_backend: plaintext
+
+# Directory credentials
+directory_username: ""
+directory_password: ""

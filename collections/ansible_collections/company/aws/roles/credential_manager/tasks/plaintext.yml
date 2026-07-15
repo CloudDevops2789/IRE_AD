@@ -1,0 +1,19 @@
+---
+- name: Validate directory username
+  ansible.builtin.assert:
+    that:
+      - directory_username | length > 0
+    fail_msg: "directory_username is required"
+
+- name: Validate directory password
+  ansible.builtin.assert:
+    that:
+      - directory_password | length > 0
+    fail_msg: "directory_password is required"
+
+- name: Publish directory credentials
+  ansible.builtin.set_fact:
+    directory_credentials:
+      username: "{{ directory_username }}"
+      password: "{{ directory_password }}"
+  no_log: true
