@@ -156,3 +156,50 @@ Produces recovery reports.
 - Inventory driven
 - Cloud agnostic
 - Security first
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Current Architecture
+
+credential_manager
+        │
+        ▼
+directory_connection (Sprint 2)
+        │
+        ▼
+identity_catalog
+        │
+        ▼
+ad_identity_export
+        │
+        ▼
+ad_identity_filter
+        │
+        ▼
+aws_s3_identity_archive
+        │
+        ▼
+ad_identity_plan
+        │
+        ▼
+ad_identity_import
+        │
+        ▼
+identity_validation
+        │
+        ▼
+ad_identity_report
+
+# Current State
+
+Sprint 1 Completed
+
+Implemented
+
+credential_manager
+
+Planned
+
+directory_connection
+identity_catalog
+ad_identity_export
+...
