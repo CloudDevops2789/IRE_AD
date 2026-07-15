@@ -1,0 +1,85 @@
+---
+###############################################################################
+# Playbook    : test_identity_catalog
+# Description : Validate Active Directory inventory collection.
+###############################################################################
+- name: Test Identity Catalog
+  hosts: localhost
+  gather_facts: false
+
+###############################################################################
+# Load Environment Configuration
+###############################################################################
+
+  vars_files:
+    - ../inventory/group_vars/directory.yml
+
+###############################################################################
+# Test Credentials (Lab Only)
+###############################################################################
+
+  vars:
+
+    credential_backend: plaintext
+
+    directory_username: svc_ansible@corp.local
+
+    directory_password: ActiveDirectory@2026
+
+###############################################################################
+# Build Identity Catalog
+###############################################################################
+
+  tasks:
+
+###############################################################################
+# Load Directory Credentials
+###############################################################################
+
+    - name: Execute Credential Manager
+      ansible.builtin.include_role:
+        name: credential_manager
+
+###############################################################################
+# Validate Directory Connection
+###############################################################################
+
+    - name: Execute Directory Connection
+      ansible.builtin.include_role:
+        name: directory_connection
+
+###############################################################################
+# Build Identity Catalog
+###############################################################################
+
+    - name: Execute Identity Catalog
+      ansible.builtin.include_role:
+        name: identity_catalog
+
+
+###############################################################################
+# Display Catalog Summary
+###############################################################################
+
+    - name: Identity Catalog Summary
+      ansible.builtin.debug:
+        msg:
+          - "Users             : {{ identity_catalog.users | length }}"
+          - "Service Accounts  : {{ identity_catalog.service_accounts | length }}"
+          - "Groups            : {{ identity_catalog.groups | length }}"
+
+###############################################################################
+# Display Published Identity Catalog
+###############################################################################
+
+    - name: Display Published Identity Catalog
+      ansible.builtin.debug:
+        var: identity_catalog
+
+###############################################################################
+# Display Service Accounts (Temporary)
+###############################################################################
+
+    - name: Display Service Accounts
+      ansible.builtin.debug:
+        var: identity_catalog.service_accounts

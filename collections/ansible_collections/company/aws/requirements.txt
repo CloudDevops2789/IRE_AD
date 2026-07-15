@@ -1,8 +1,13 @@
----
 ###############################################################################
-# Local Development
+# Python Packages
 ###############################################################################
 
-ansible_connection: local
+ldap3
 
-ansible_python_interpreter: /home/svc_unix/.venvs/identity-recovery/bin/python
+boto3
+
+botocore
+
+pywinrm
+
+requests

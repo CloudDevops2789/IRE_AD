@@ -11,7 +11,7 @@ Status: Active
 | Sprint | Role | Status |
 |---------|---------------------------|------------|
 | 1 | credential_manager |  Complete |
-| 2 | directory_connection |  In Progress |
+| 2 | directory_connection |  Complete |
 | 3 | ad_identity_export |  Pending |
 | 4 | aws_s3_identity_archive |  Pending |
 | 5 | ad_identity_filter |  Pending |

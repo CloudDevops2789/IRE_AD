@@ -1,0 +1,31 @@
+---
+###############################################################################
+# Role        : identity_catalog
+# Task        : groups
+# Description : Collect Active Directory security groups.
+###############################################################################
+
+- name: Query Active Directory groups
+  community.general.ldap_search:
+
+    server_uri: "ldap://{{ directory_connection.host }}"
+
+    bind_dn: "{{ directory_credentials.username }}"
+
+    bind_pw: "{{ directory_credentials.password }}"
+
+    dn: "OU=Groups,OU=Identity_Test,{{ directory_connection.search_base }}"
+
+    scope: onelevel
+
+    filter: "(objectClass=group)"
+
+    attrs:
+      - cn
+      - distinguishedName
+      - sAMAccountName
+      - objectGUID
+      - objectSid
+      - member
+
+  register: ldap_groups

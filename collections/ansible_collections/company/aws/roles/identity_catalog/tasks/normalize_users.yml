@@ -1,0 +1,38 @@
+---
+###############################################################################
+# Role        : identity_catalog
+# Task        : normalize_users
+# Description : Normalize LDAP user objects into the internal identity model.
+###############################################################################
+
+- name: Initialize normalized user catalog
+  ansible.builtin.set_fact:
+    normalized_users: []
+
+###############################################################################
+# Normalize LDAP Users
+###############################################################################
+
+- name: Normalize Active Directory users
+  ansible.builtin.set_fact:
+
+    normalized_users: >-
+      {{
+        normalized_users +
+        [
+          {
+            'username'      : item.sAMAccountName | default(''),
+            'display_name'  : item.cn | default(''),
+            'given_name'    : item.givenName | default(''),
+            'surname'       : item.sn | default(''),
+            'upn'           : item.userPrincipalName | default(''),
+            'dn'            : item.distinguishedName | default(''),
+            'groups': (
+              item.memberOf is string
+              | ternary([item.memberOf], item.memberOf | default([]))
+            )
+          }
+        ]
+      }}
+
+  loop: "{{ ldap_users.results }}"

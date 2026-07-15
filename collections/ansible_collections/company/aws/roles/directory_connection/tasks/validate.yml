@@ -1,0 +1,45 @@
+---
+###############################################################################
+# Role        : directory_connection
+# Task        : validate
+# Description : Validate all required input variables before attempting to
+#               connect to Active Directory.
+###############################################################################
+
+- name: Validate directory server
+  ansible.builtin.assert:
+    that:
+      - directory_host is defined
+      - directory_host | length > 0
+    fail_msg: "directory_host is required."
+
+- name: Validate directory domain
+  ansible.builtin.assert:
+    that:
+      - directory_domain is defined
+      - directory_domain | length > 0
+    fail_msg: "directory_domain is required."
+
+- name: Validate search base
+  ansible.builtin.assert:
+    that:
+      - directory_search_base is defined
+      - directory_search_base | length > 0
+    fail_msg: "directory_search_base is required."
+
+- name: Validate credential object
+  ansible.builtin.assert:
+    that:
+      - directory_credentials is defined
+      - directory_credentials.username is defined
+      - directory_credentials.password is defined
+    fail_msg: "Directory credentials are not available. Execute credential_manager first."
+
+- name: Validate LDAP ports
+  ansible.builtin.assert:
+    that:
+      - ldap_port | int > 0
+      - ldap_port | int < 65536
+      - ldaps_port | int > 0
+      - ldaps_port | int < 65536
+    fail_msg: "LDAP/LDAPS port configuration is invalid."

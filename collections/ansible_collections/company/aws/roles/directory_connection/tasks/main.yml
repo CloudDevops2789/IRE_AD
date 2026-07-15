@@ -1,2 +1,35 @@
 ---
-# tasks file for roles/directory_connection
+###############################################################################
+# Validate required variables and prerequisites
+###############################################################################
+- import_tasks: validate.yml
+
+###############################################################################
+# Verify DNS resolution for the Active Directory domain/controller
+###############################################################################
+- import_tasks: dns.yml
+
+###############################################################################
+# Verify network connectivity to LDAP/LDAPS ports
+###############################################################################
+- import_tasks: connectivity.yml
+
+###############################################################################
+# Authenticate to Active Directory using the configured credentials v0
+###############################################################################
+# - import_tasks: ldap_bind.yml
+
+###############################################################################
+# Select and execute the configured directory provider v1
+###############################################################################
+- import_tasks: provider.yml
+
+###############################################################################
+# Discover Active Directory information (RootDSE, Naming Context, Domain, etc.)
+###############################################################################
+- import_tasks: discover_domain.yml
+
+###############################################################################
+# Publish reusable connection facts for downstream roles
+###############################################################################
+- import_tasks: publish.yml

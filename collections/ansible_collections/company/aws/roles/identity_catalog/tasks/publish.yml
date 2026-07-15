@@ -1,0 +1,21 @@
+---
+###############################################################################
+# Role        : identity_catalog
+# Task        : publish
+# Description : Publish identity catalog.
+###############################################################################
+
+- name: Enter publish.yml
+  ansible.builtin.debug:
+    msg: "Publishing normalized identity catalog"
+
+- name: Publish identity catalog
+  ansible.builtin.set_fact:
+    identity_catalog:
+      users: "{{ normalized_users }}"
+      service_accounts: "{{ normalized_service_accounts }}"
+      groups: "{{ ldap_groups.results }}"
+
+- name: Verify published catalog
+  ansible.builtin.debug:
+    var: identity_catalog.users[0]

@@ -1,0 +1,22 @@
+---
+###############################################################################
+# Role        : directory_connection
+# Provider    : LDAP
+# Task        : authenticate
+# Description : Validate LDAP credentials.
+###############################################################################
+
+- name: Validate LDAP bind
+  community.general.ldap_search:
+    server_uri: "ldap://{{ directory_host }}"
+    bind_dn: "{{ directory_credentials.username }}"
+    bind_pw: "{{ directory_credentials.password }}"
+    dn: "{{ directory_search_base }}"
+    scope: base
+    filter: "(objectClass=domain)"
+
+  register: ldap_authentication
+
+- name: Authentication successful
+  ansible.builtin.debug:
+    msg: "LDAP authentication succeeded."

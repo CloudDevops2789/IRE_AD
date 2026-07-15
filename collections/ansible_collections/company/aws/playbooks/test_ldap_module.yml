@@ -1,0 +1,24 @@
+---
+- name: Test community.general.ldap_search
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: /home/svc_unix/.venvs/identity-recovery/bin/python
+
+  tasks:
+
+    - name: Query RootDSE
+      community.general.ldap_search:
+        server_uri: ldap://192.168.1.200
+        bind_dn: svc_ansible@corp.local
+        bind_pw: ActiveDirectory@2026
+        dn: "DC=corp,DC=local"
+        scope: base
+        filter: "(objectClass=*)"
+
+      register: ldap_result
+
+    - debug:
+        var: ldap_result

@@ -1,0 +1,40 @@
+---
+###############################################################################
+# Role        : directory_connection
+# Task        : provider
+# Description : Execute the configured directory provider.
+###############################################################################
+
+###############################################################################
+# Execute LDAP Provider
+###############################################################################
+
+- name: Execute LDAP provider
+  ansible.builtin.include_tasks: providers/ldap.yml
+  when: directory_provider == "ldap"
+
+###############################################################################
+# Execute Microsoft AD Provider
+###############################################################################
+
+- name: Execute Microsoft AD provider
+  ansible.builtin.include_tasks: providers/microsoft_ad.yml
+  when: directory_provider == "microsoft.ad"
+
+###############################################################################
+# Execute Custom Provider
+###############################################################################
+
+- name: Execute Custom provider
+  ansible.builtin.include_tasks: providers/custom.yml
+  when: directory_provider == "custom"
+
+###############################################################################
+# Unsupported Provider
+###############################################################################
+
+- name: Validate provider selection
+  ansible.builtin.assert:
+    that:
+      - directory_provider in ['ldap', 'microsoft.ad', 'custom']
+    fail_msg: "Unsupported directory provider '{{ directory_provider }}'."

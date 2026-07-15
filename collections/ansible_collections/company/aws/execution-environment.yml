@@ -1,8 +1,14 @@
 ---
 ###############################################################################
-# Local Development
+# Execution Environment Definition
 ###############################################################################
 
-ansible_connection: local
+version: 3
 
-ansible_python_interpreter: /home/svc_unix/.venvs/identity-recovery/bin/python
+dependencies:
+
+  galaxy: requirements.yml
+
+  python: requirements.txt
+
+  system: bindep.txt

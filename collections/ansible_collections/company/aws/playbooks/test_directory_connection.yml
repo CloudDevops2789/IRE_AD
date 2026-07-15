@@ -1,0 +1,51 @@
+---
+- name: Test Directory Connection
+  hosts: localhost
+  gather_facts: false
+
+  vars_files:
+    - ../inventory/group_vars/directory.yml
+
+  vars:
+
+    credential_backend: plaintext
+
+    directory_username: svc_ansible@corp.local
+    directory_password: ActiveDirectory@2026
+
+
+  tasks:
+
+    - name: Show Python interpreter
+      debug:
+        var: ansible_playbook_python
+
+    - name: Show VIRTUAL_ENV
+      debug:
+        msg: "{{ lookup('env','VIRTUAL_ENV') }}"
+
+    - name: Show interpreter used on localhost
+      debug:
+        var: ansible_python_interpreter
+###############################################################################
+# Load Directory Credentials
+###############################################################################
+
+    - name: Execute Credential Manager
+      ansible.builtin.include_role:
+        name: credential_manager
+
+###############################################################################
+# Execute Directory Connection
+###############################################################################
+
+    - name: Execute Directory Connection
+      ansible.builtin.include_role:
+        name: directory_connection
+    
+###############################################################################
+# Display RootDSE
+###############################################################################
+    - name: Display RootDSE
+      debug:
+        var: directory_rootdse

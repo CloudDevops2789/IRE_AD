@@ -1,0 +1,22 @@
+---
+###############################################################################
+# Role        : directory_connection
+# Provider    : LDAP
+# Task        : publish
+# Description : Publish validated LDAP connection information.
+###############################################################################
+
+- name: Publish directory connection
+  ansible.builtin.set_fact:
+
+    directory_connection:
+
+      provider: ldap
+
+      host: "{{ directory_host }}"
+
+      domain: "{{ directory_domain }}"
+
+      search_base: "{{ directory_search_base }}"
+
+      authenticated: true

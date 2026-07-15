@@ -1,0 +1,10 @@
+---
+###############################################################################
+# Role        : directory_connection
+# Provider    : Custom
+# Description : Custom provider implementation.
+###############################################################################
+
+- name: Custom provider selected
+  ansible.builtin.debug:
+    msg: "Using Custom provider."

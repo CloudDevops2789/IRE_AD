@@ -1,0 +1,10 @@
+---
+###############################################################################
+# Role        : directory_connection
+# Provider    : Microsoft AD
+# Description : Microsoft AD provider implementation.
+###############################################################################
+
+- name: Microsoft AD provider selected
+  ansible.builtin.debug:
+    msg: "Using Microsoft AD provider."

@@ -1,8 +1,8 @@
 ---
 ###############################################################################
-# Local Development
+# Role        : directory_connection
+# Provider    : LDAP
+# Description : LDAP Provider Entry Point
 ###############################################################################
 
-ansible_connection: local
-
-ansible_python_interpreter: /home/svc_unix/.venvs/identity-recovery/bin/python
+- import_tasks: ldap/main.yml

@@ -1,0 +1,40 @@
+---
+###############################################################################
+# Role        : identity_catalog
+# Task        : users
+# Description : Collect Active Directory user objects.
+###############################################################################
+
+- name: Query Active Directory users
+  community.general.ldap_search:
+
+    server_uri: "ldap://{{ directory_connection.host }}"
+
+    bind_dn: "{{ directory_credentials.username }}"
+
+    bind_pw: "{{ directory_credentials.password }}"
+
+    dn: "OU=Users,OU=Identity_Test,{{ directory_connection.search_base }}"
+
+    scope: onelevel
+
+    filter: "(objectClass=user)"
+
+    attrs:
+      - cn
+      - displayName
+      - givenName
+      - sn
+      - sAMAccountName
+      - userPrincipalName
+      - distinguishedName
+      - objectGUID
+      - objectSid
+      - memberOf
+      - mail
+
+  register: ldap_users
+
+- name: Show first raw LDAP user
+  ansible.builtin.debug:
+    var: ldap_users.results[0]

@@ -1,0 +1,25 @@
+---
+###############################################################################
+# Normalize Organizational Units
+###############################################################################
+
+- name: Initialize normalized OU catalog
+  ansible.builtin.set_fact:
+    normalized_ous: []
+
+- name: Normalize Organizational Units
+  ansible.builtin.set_fact:
+
+    normalized_ous: >-
+      {{
+        normalized_ous +
+        [
+          {
+            'name' : item.ou | default(''),
+            'dn'   : item.distinguishedName | default(''),
+            'description' : item.description | default('')
+          }
+        ]
+      }}
+
+  loop: "{{ ldap_ous.results }}"

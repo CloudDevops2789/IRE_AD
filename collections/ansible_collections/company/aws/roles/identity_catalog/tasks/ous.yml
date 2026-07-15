@@ -1,0 +1,28 @@
+---
+###############################################################################
+# Role        : identity_catalog
+# Task        : ous
+# Description : Collect Active Directory Organizational Units.
+###############################################################################
+
+- name: Query Active Directory Organizational Units
+  community.general.ldap_search:
+
+    server_uri: "ldap://{{ directory_connection.host }}"
+
+    bind_dn: "{{ directory_credentials.username }}"
+
+    bind_pw: "{{ directory_credentials.password }}"
+
+    dn: "{{ directory_connection.search_base }}"
+
+    scope: subordinate
+
+    filter: "(objectClass=organizationalUnit)"
+
+    attrs:
+      - ou
+      - distinguishedName
+      - description
+
+  register: ldap_ous

@@ -1,0 +1,32 @@
+---
+###############################################################################
+# Role        : directory_connection
+# Task        : prerequisites
+# Description : Validate execution environment prerequisites.
+###############################################################################
+
+###############################################################################
+# Display Selected Provider
+###############################################################################
+
+- name: Display selected directory provider
+  ansible.builtin.debug:
+    msg: "Directory Provider: {{ directory_provider }}"
+
+###############################################################################
+# Validate Provider Selection
+###############################################################################
+
+- name: Validate directory provider
+  ansible.builtin.assert:
+    that:
+      - directory_provider in ['ldap', 'microsoft.ad', 'custom']
+    fail_msg: "Unsupported directory provider '{{ directory_provider }}'."
+
+###############################################################################
+# Display Execution Environment
+###############################################################################
+
+- name: Display Python interpreter
+  ansible.builtin.debug:
+    var: ansible_playbook_python

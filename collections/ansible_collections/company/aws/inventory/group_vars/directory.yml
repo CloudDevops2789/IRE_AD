@@ -1,0 +1,61 @@
+---
+###############################################################################
+# Directory Configuration
+###############################################################################
+
+directory_type: onprem
+
+directory_connection_method: ip
+
+directory_host: 192.168.1.200
+
+directory_hostname: DC1
+
+directory_domain: corp.local
+
+directory_search_base: "DC=corp,DC=local"
+
+directory_protocol: auto
+
+ldap_port: 389
+
+ldaps_port: 636
+
+###############################################################################
+# Directory Provider
+###############################################################################
+
+# Supported values:
+# ldap
+# microsoft.ad
+# custom (future)
+
+directory_provider: ldap
+
+allow_provider_fallback: true
+
+# directory_provider: microsoft.ad (or use ansible collections for Microsoft AD)
+#in AWS IRE
+#directory_connection_method: dns
+#directory_host: dc1.ire.company.com
+
+###############################################################################
+# Identity Catalog Filters
+###############################################################################
+
+identity_catalog_filters:
+
+  users: >-
+    (&
+      (objectClass=user)
+      (!(sAMAccountName=svc_*))
+    )
+
+  service_accounts: >-
+    (&
+      (objectClass=user)
+      (sAMAccountName=svc_*)
+    )
+
+  groups: >-
+    (objectClass=group)

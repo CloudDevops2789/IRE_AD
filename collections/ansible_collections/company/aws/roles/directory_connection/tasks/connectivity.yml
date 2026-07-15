@@ -1,0 +1,41 @@
+---
+###############################################################################
+# Role        : directory_connection
+# Task        : connectivity
+# Description : Validate TCP connectivity to the configured LDAP/LDAPS ports.
+###############################################################################
+
+###############################################################################
+# Test LDAP Connectivity
+###############################################################################
+
+- name: Test LDAP connectivity
+  ansible.builtin.wait_for:
+    host: "{{ directory_host }}"
+    port: "{{ ldap_port }}"
+    timeout: "{{ ldap_timeout }}"
+    state: started
+  register: ldap_connectivity
+
+###############################################################################
+# Test LDAPS Connectivity
+###############################################################################
+
+- name: Test LDAPS connectivity
+  ansible.builtin.wait_for:
+    host: "{{ directory_host }}"
+    port: "{{ ldaps_port }}"
+    timeout: "{{ ldap_timeout }}"
+    state: started
+  register: ldaps_connectivity
+  ignore_errors: true
+
+###############################################################################
+# Display Connectivity Results
+###############################################################################
+
+- name: Display connectivity status
+  ansible.builtin.debug:
+    msg:
+      - "LDAP  ({{ ldap_port }})  : {{ 'Available' if not ldap_connectivity.failed else 'Unavailable' }}"
+      - "LDAPS ({{ ldaps_port }}) : {{ 'Available' if not (ldaps_connectivity.failed | default(false)) else 'Unavailable' }}"

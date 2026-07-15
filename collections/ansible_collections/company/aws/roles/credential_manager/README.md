@@ -36,3 +36,22 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+## Status
+
+**Status:**  Complete
+
+### Implemented Features
+
+- Provider-based credential management
+- Plaintext provider (lab/testing)
+- Credential validation
+- Standardized credential publication
+- Role consumption via `directory_credentials`
+
+### Published Facts
+
+```yaml
+directory_credentials:
+  username:
+  password:

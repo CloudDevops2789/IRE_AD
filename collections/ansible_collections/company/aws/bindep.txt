@@ -1,0 +1,38 @@
+###############################################################################
+# LDAP
+###############################################################################
+
+openldap-clients [platform:rpm]
+
+ldap-utils [platform:dpkg]
+
+###############################################################################
+# Kerberos
+###############################################################################
+
+krb5-workstation [platform:rpm]
+
+krb5-user [platform:dpkg]
+
+###############################################################################
+# DNS
+###############################################################################
+
+bind-utils [platform:rpm]
+
+dnsutils [platform:dpkg]
+
+################
+development libraries needed to build python-ldap
+################
+
+openldap-clients [platform:rpm]
+openldap-devel [platform:rpm]
+
+ldap-utils [platform:dpkg]
+libldap2-dev [platform:dpkg]
+
+libsasl2-dev [platform:dpkg]
+
+python3-devel [platform:rpm]
+python3-dev [platform:dpkg]

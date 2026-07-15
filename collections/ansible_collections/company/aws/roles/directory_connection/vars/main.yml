@@ -1,2 +1,6 @@
 ---
-# vars file for roles/directory_connection
+###############################################################################
+# Role        : directory_connection
+# File        : vars/main.yml
+# Description : Reserved for static role variables.
+###############################################################################

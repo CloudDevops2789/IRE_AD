@@ -1,2 +1,63 @@
 ---
-# defaults file for roles/directory_connection
+###############################################################################
+# Role        : directory_connection
+# File        : defaults/main.yml
+# Description : Default configuration values for Active Directory connectivity.
+###############################################################################
+
+###############################################################################
+# Connection Method
+###############################################################################
+
+# Supported values:
+#   auto  - Automatically determine LDAP or LDAPS
+#   ldap  - Force LDAP
+#   ldaps - Force LDAPS
+directory_protocol: auto
+
+###############################################################################
+# LDAP Ports
+###############################################################################
+
+ldap_port: 389
+ldaps_port: 636
+
+###############################################################################
+# Connection Settings
+###############################################################################
+
+ldap_timeout: 5
+
+connection_retries: 3
+
+connection_delay: 2
+
+###############################################################################
+# SSL Validation
+###############################################################################
+
+validate_certificates: false
+
+###############################################################################
+# LDAP Search Defaults
+###############################################################################
+
+ldap_rootdse_base: ""
+
+ldap_rootdse_scope: base
+
+ldap_rootdse_filter: "(objectClass=*)"
+
+ldap_rootdse_attributes:
+
+  - defaultNamingContext
+
+  - configurationNamingContext
+
+  - schemaNamingContext
+
+  - rootDomainNamingContext
+
+  - dnsHostName
+
+  - supportedLDAPVersion
